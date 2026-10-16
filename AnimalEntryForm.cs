@@ -56,6 +56,12 @@ namespace Wildlife_Record_System
 
             // save animal 
 
+            FileHandler fileHandler = new FileHandler();
+
+            fileHandler.writeAnimalRecord(animal);
+
+            
+
 
 
         }
