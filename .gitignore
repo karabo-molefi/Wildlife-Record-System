@@ -60,4 +60,4 @@ nunit-*.xml
 bin/
 obj/
 -Ms/
-summary.txt
+Output/
