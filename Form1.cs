@@ -6,5 +6,11 @@ namespace Wildlife_Record_System
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            AnimalEntryForm addAnimal = new AnimalEntryForm();
+            addAnimal.ShowDialog();
+        }
     }
 }

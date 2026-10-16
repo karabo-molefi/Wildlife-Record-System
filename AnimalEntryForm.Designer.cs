@@ -36,10 +36,11 @@
             animalIDTxt = new TextBox();
             nameTxt = new TextBox();
             speciesTxt = new TextBox();
-            btnSave = new Button();
+            btnAddAnimal = new Button();
             AgeNumericUpDown = new NumericUpDown();
             RecScoreNumericUpDown = new NumericUpDown();
             btnExit = new Button();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)AgeNumericUpDown).BeginInit();
             ((System.ComponentModel.ISupportInitialize)RecScoreNumericUpDown).BeginInit();
             SuspendLayout();
@@ -110,15 +111,15 @@
             speciesTxt.Size = new Size(120, 23);
             speciesTxt.TabIndex = 9;
             // 
-            // btnSave
+            // btnAddAnimal
             // 
-            btnSave.Location = new Point(40, 258);
-            btnSave.Name = "btnSave";
-            btnSave.Size = new Size(128, 23);
-            btnSave.TabIndex = 14;
-            btnSave.Text = "Save Animal";
-            btnSave.UseVisualStyleBackColor = true;
-            btnSave.Click += btnSave_Click;
+            btnAddAnimal.Location = new Point(40, 258);
+            btnAddAnimal.Name = "btnAddAnimal";
+            btnAddAnimal.Size = new Size(102, 23);
+            btnAddAnimal.TabIndex = 14;
+            btnAddAnimal.Text = "Add  Animal";
+            btnAddAnimal.UseVisualStyleBackColor = true;
+            btnAddAnimal.Click += btnAddAnimal_Click;
             // 
             // AgeNumericUpDown
             // 
@@ -136,7 +137,7 @@
             // 
             // btnExit
             // 
-            btnExit.Location = new Point(189, 258);
+            btnExit.Location = new Point(163, 313);
             btnExit.Name = "btnExit";
             btnExit.Size = new Size(75, 23);
             btnExit.TabIndex = 17;
@@ -144,15 +145,25 @@
             btnExit.UseVisualStyleBackColor = true;
             btnExit.Click += btnExit_Click;
             // 
+            // button1
+            // 
+            button1.Location = new Point(40, 313);
+            button1.Name = "button1";
+            button1.Size = new Size(102, 23);
+            button1.TabIndex = 18;
+            button1.Text = "Save All";
+            button1.UseVisualStyleBackColor = true;
+            // 
             // AnimalEntryForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(button1);
             Controls.Add(btnExit);
             Controls.Add(RecScoreNumericUpDown);
             Controls.Add(AgeNumericUpDown);
-            Controls.Add(btnSave);
+            Controls.Add(btnAddAnimal);
             Controls.Add(speciesTxt);
             Controls.Add(nameTxt);
             Controls.Add(animalIDTxt);
@@ -185,9 +196,10 @@
         private TextBox textBox5;
         private TextBox textBox6;
         private TextBox textBox7;
-        private Button btnSave;
+        private Button btnAddAnimal;
         private NumericUpDown AgeNumericUpDown;
         private NumericUpDown RecScoreNumericUpDown;
         private Button btnExit;
+        private Button button1;
     }
 }

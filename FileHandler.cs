@@ -12,16 +12,20 @@ namespace Wildlife_Record_System
     {
         public FileHandler() { }
 
-        public void writeAnimalRecord(Animal animal)
+        public void writeAnimalRecord(List<Animal> animals, int skipped)
         {
           
             using (StreamWriter writer = new StreamWriter("animal.txt", append: true))
             {
-                writer.WriteLine(animal.ToString());
+                foreach (var animal in animals)
+                {
+                    writer.WriteLine(animal.ToString());
+
+                }
                 writer.Flush();
             }
-
             MessageBox.Show("Complete");
+            MessageBox.Show($"Number of lines skipped: {skipped}.");
 
         }
 
