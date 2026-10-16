@@ -44,6 +44,18 @@ namespace Wildlife_Record_System
 
             int age = (int)AgeNumericUpDown.Value;
             int recoveryScore = (int)RecScoreNumericUpDown.Value;
+            
+            // classify animal
+            DataHandler dataHandler = new DataHandler();
+
+            var (status, housingUnit) = dataHandler.ClassifyAnimal(recoveryScore);
+
+            // create animal 
+
+            Animal animal = new Animal(animalID, name, species, age, recoveryScore, status, housingUnit);
+
+            // save animal 
+
 
 
         }

@@ -23,9 +23,9 @@ namespace Wildlife_Record_System
         string name { get; set; }
         string species { get; set; }
         int age { get; set; }
-        int recoveryScore { get; set; }
-        string status { get; set; }
-        string housingUnit { get; set; }
+        public int recoveryScore { get; set; }
+        public string status { get; set; }
+        public string housingUnit { get; set; }
 
         public override string? ToString()
         {
