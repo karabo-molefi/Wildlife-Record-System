@@ -40,7 +40,6 @@
             AgeNumericUpDown = new NumericUpDown();
             RecScoreNumericUpDown = new NumericUpDown();
             btnExit = new Button();
-            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)AgeNumericUpDown).BeginInit();
             ((System.ComponentModel.ISupportInitialize)RecScoreNumericUpDown).BeginInit();
             SuspendLayout();
@@ -113,7 +112,7 @@
             // 
             // btnAddAnimal
             // 
-            btnAddAnimal.Location = new Point(40, 258);
+            btnAddAnimal.Location = new Point(40, 272);
             btnAddAnimal.Name = "btnAddAnimal";
             btnAddAnimal.Size = new Size(102, 23);
             btnAddAnimal.TabIndex = 14;
@@ -137,29 +136,19 @@
             // 
             // btnExit
             // 
-            btnExit.Location = new Point(163, 313);
+            btnExit.Location = new Point(165, 272);
             btnExit.Name = "btnExit";
-            btnExit.Size = new Size(75, 23);
+            btnExit.Size = new Size(99, 23);
             btnExit.TabIndex = 17;
             btnExit.Text = "Exit";
             btnExit.UseVisualStyleBackColor = true;
             btnExit.Click += btnExit_Click;
             // 
-            // button1
-            // 
-            button1.Location = new Point(40, 313);
-            button1.Name = "button1";
-            button1.Size = new Size(102, 23);
-            button1.TabIndex = 18;
-            button1.Text = "Save All";
-            button1.UseVisualStyleBackColor = true;
-            // 
             // AnimalEntryForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(button1);
+            ClientSize = new Size(300, 323);
             Controls.Add(btnExit);
             Controls.Add(RecScoreNumericUpDown);
             Controls.Add(AgeNumericUpDown);
@@ -200,6 +189,5 @@
         private NumericUpDown AgeNumericUpDown;
         private NumericUpDown RecScoreNumericUpDown;
         private Button btnExit;
-        private Button button1;
     }
 }

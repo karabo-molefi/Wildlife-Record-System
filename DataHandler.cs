@@ -10,6 +10,7 @@ namespace Wildlife_Record_System
     {
         public DataHandler() { }
 
+        // validates the animal id, ensures its in the correct format
         public Boolean validateAnimalID(string animalID)
         {
             // convert to upper case before checking
@@ -42,6 +43,7 @@ namespace Wildlife_Record_System
             return false;
         }
 
+        // validates the  text fields, ensures its in the correct format
         public Boolean validateTextFields(string textField)
         {
             // Validates Name & Species Fields
@@ -64,6 +66,7 @@ namespace Wildlife_Record_System
             
         }
 
+        // validates the  numeric fields, ensures its in the correct format
         public Boolean validateNumericFields(int numericField)
         {
             // int type
@@ -80,7 +83,7 @@ namespace Wildlife_Record_System
             return false;
         }
 
-
+        // evaluates the revovery score to assign the status and the housing unit
         public (string status, string housingUnit) ClassifyAnimal(int recoveryScore)
         {
             string status = null;

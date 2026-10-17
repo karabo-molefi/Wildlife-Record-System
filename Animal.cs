@@ -19,17 +19,17 @@ namespace Wildlife_Record_System
             this.housingUnit = housingUnit;
         }
 
-        string animalID { get; set; }
-        string name { get; set; }
-        string species { get; set; }
-        int age { get; set; }
+        public string animalID { get; set; }
+        public string name { get; set; }
+        public string species { get; set; }
+        public int age { get; set; }
         public int recoveryScore { get; set; }
         public string status { get; set; }
         public string housingUnit { get; set; }
 
         public override string? ToString()
         {
-            return $"{animalID}|{species}|{age}|{recoveryScore}|{status}|{housingUnit}";
+            return $"{animalID}|{name}|{species}|{age}|{recoveryScore}|{status}|{housingUnit}";
         }
 
 
