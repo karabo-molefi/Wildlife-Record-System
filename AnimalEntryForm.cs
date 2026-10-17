@@ -24,14 +24,7 @@ namespace Wildlife_Record_System
 
         private void btnAddAnimal_Click(object sender, EventArgs e)
         {
-            List<Animal> savedAnimals = new List<Animal>();
-            int InvalidAnimals = 0; // skipped animals
-
-
-            string animalID = animalIDTxt.Text;
-            string name = nameTxt.Text;
-            string species = speciesTxt.Text;
-
+            // Form input settings
             // Prevent decimal places from showing
             AgeNumericUpDown.DecimalPlaces = 0;
             RecScoreNumericUpDown.DecimalPlaces = 0;
@@ -46,50 +39,39 @@ namespace Wildlife_Record_System
             RecScoreNumericUpDown.Minimum = 0;
             RecScoreNumericUpDown.Maximum = 100;
 
+
+            FileHandler fileHandler = new FileHandler();
+            DataHandler dataHandler = new DataHandler();
+
+
+            string animalID = animalIDTxt.Text;
+            string name = nameTxt.Text;
+            string species = speciesTxt.Text;
             int age = (int)AgeNumericUpDown.Value;
             int recoveryScore = (int)RecScoreNumericUpDown.Value;
             
-            // classify animal
-            DataHandler dataHandler = new DataHandler();
-
+            // classify animal, calculate satus and housing unit
             var (status, housingUnit) = dataHandler.ClassifyAnimal(recoveryScore);
 
             // create animal 
+            
 
-            Animal animal = new Animal(animalID, name, species, age, recoveryScore, status, housingUnit);
+            // Validate all parts using data handler validation methods
+            bool isValid = dataHandler.validateAnimalID(animalID) &&
+                           dataHandler.validateTextFields(name) &&
+                           dataHandler.validateTextFields(species) &&
+                           dataHandler.validateNumericFields(age) &&
+                           dataHandler.validateNumericFields(recoveryScore);
 
-            // validate inputs
-
-            bool skip = true; // skips saving writing unless all checks pass
-
-            if (dataHandler.validateAnimalID(animalID) && dataHandler.validateTextFields(name) && dataHandler.validateTextFields(species) && dataHandler.validateNumericFields(age) && dataHandler.validateNumericFields(recoveryScore))
+            if (isValid)
             {
-                skip = false;
-            }
-
-            if (!skip)
-            {
-                savedAnimals.Add(animal);
+                Animal animal = new Animal(animalID, name, species, age, recoveryScore, status, housingUnit);
+                fileHandler.writeAnimalRecord(animal);
             }
             else
             {
-                InvalidAnimals++;
+                MessageBox.Show("Unable to save. The animal entered was not in the correct format.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            
-
-            FileHandler fileHandler = new FileHandler();
-
-            fileHandler.writeAnimalRecord(savedAnimals, InvalidAnimals);
-
-
-
-
-
-
-            
-
-
 
         }
     }
