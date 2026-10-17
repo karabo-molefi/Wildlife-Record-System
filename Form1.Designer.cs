@@ -53,7 +53,7 @@
             dataGridViewAnimals.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewAnimals.Location = new Point(12, 73);
             dataGridViewAnimals.Name = "dataGridViewAnimals";
-            dataGridViewAnimals.Size = new Size(795, 259);
+            dataGridViewAnimals.Size = new Size(763, 259);
             dataGridViewAnimals.TabIndex = 1;
             // 
             // btnSearch
@@ -76,7 +76,7 @@
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(516, 359);
+            btnDelete.Location = new Point(496, 359);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(126, 23);
             btnDelete.TabIndex = 4;
@@ -85,7 +85,7 @@
             // 
             // btnExit
             // 
-            btnExit.Location = new Point(681, 359);
+            btnExit.Location = new Point(648, 359);
             btnExit.Name = "btnExit";
             btnExit.Size = new Size(126, 23);
             btnExit.TabIndex = 5;
@@ -107,7 +107,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(819, 450);
+            ClientSize = new Size(794, 450);
             Controls.Add(lblHeader);
             Controls.Add(btnExit);
             Controls.Add(btnDelete);

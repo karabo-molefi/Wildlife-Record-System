@@ -100,10 +100,6 @@ namespace Wildlife_Record_System
                 MessageBox.Show("Permission denied access to animals.txt.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            foreach (var item in animals)
-            {
-                MessageBox.Show(item.ToString());
-            }
             return animals;
 
         }

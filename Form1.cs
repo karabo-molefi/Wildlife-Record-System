@@ -24,7 +24,7 @@ namespace Wildlife_Record_System
             {
                 Name = "colId",
                 HeaderText = "Animal ID",
-                DataPropertyName = "animalID" // Must match your Animal class property name
+                DataPropertyName = "animalID" 
             });
 
             // 2. Name
