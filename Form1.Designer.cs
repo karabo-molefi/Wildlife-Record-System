@@ -40,9 +40,10 @@
             // 
             // button1
             // 
-            button1.Location = new Point(12, 359);
+            button1.Location = new Point(14, 479);
+            button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
-            button1.Size = new Size(126, 23);
+            button1.Size = new Size(144, 31);
             button1.TabIndex = 0;
             button1.Text = "Add Animal";
             button1.UseVisualStyleBackColor = true;
@@ -51,43 +52,50 @@
             // dataGridViewAnimals
             // 
             dataGridViewAnimals.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewAnimals.Location = new Point(12, 73);
+            dataGridViewAnimals.Location = new Point(14, 97);
+            dataGridViewAnimals.Margin = new Padding(3, 4, 3, 4);
             dataGridViewAnimals.Name = "dataGridViewAnimals";
-            dataGridViewAnimals.Size = new Size(763, 259);
+            dataGridViewAnimals.RowHeadersWidth = 51;
+            dataGridViewAnimals.Size = new Size(872, 345);
             dataGridViewAnimals.TabIndex = 1;
             // 
             // btnSearch
             // 
-            btnSearch.Location = new Point(185, 359);
+            btnSearch.Location = new Point(211, 479);
+            btnSearch.Margin = new Padding(3, 4, 3, 4);
             btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(126, 23);
+            btnSearch.Size = new Size(144, 31);
             btnSearch.TabIndex = 2;
             btnSearch.Text = "Search";
             btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
             // 
             // btnUpdate
             // 
-            btnUpdate.Location = new Point(351, 359);
+            btnUpdate.Location = new Point(401, 479);
+            btnUpdate.Margin = new Padding(3, 4, 3, 4);
             btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(126, 23);
+            btnUpdate.Size = new Size(144, 31);
             btnUpdate.TabIndex = 3;
             btnUpdate.Text = "Update";
             btnUpdate.UseVisualStyleBackColor = true;
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(496, 359);
+            btnDelete.Location = new Point(567, 479);
+            btnDelete.Margin = new Padding(3, 4, 3, 4);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(126, 23);
+            btnDelete.Size = new Size(144, 31);
             btnDelete.TabIndex = 4;
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = true;
             // 
             // btnExit
             // 
-            btnExit.Location = new Point(648, 359);
+            btnExit.Location = new Point(741, 479);
+            btnExit.Margin = new Padding(3, 4, 3, 4);
             btnExit.Name = "btnExit";
-            btnExit.Size = new Size(126, 23);
+            btnExit.Size = new Size(144, 31);
             btnExit.TabIndex = 5;
             btnExit.Text = "Exit";
             btnExit.UseVisualStyleBackColor = true;
@@ -97,17 +105,17 @@
             // 
             lblHeader.AutoSize = true;
             lblHeader.Font = new Font("Segoe UI", 20F);
-            lblHeader.Location = new Point(12, 19);
+            lblHeader.Location = new Point(14, 25);
             lblHeader.Name = "lblHeader";
-            lblHeader.Size = new Size(287, 37);
+            lblHeader.Size = new Size(362, 46);
             lblHeader.TabIndex = 6;
             lblHeader.Text = "Wildlife Record System";
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(794, 450);
+            ClientSize = new Size(907, 600);
             Controls.Add(lblHeader);
             Controls.Add(btnExit);
             Controls.Add(btnDelete);
@@ -115,8 +123,10 @@
             Controls.Add(btnSearch);
             Controls.Add(dataGridViewAnimals);
             Controls.Add(button1);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "Form1";
             Text = "Wildlife Record System";
+            Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridViewAnimals).EndInit();
             ResumeLayout(false);
             PerformLayout();

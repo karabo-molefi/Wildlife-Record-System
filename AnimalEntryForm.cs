@@ -49,12 +49,12 @@ namespace Wildlife_Record_System
             string species = speciesTxt.Text;
             int age = (int)AgeNumericUpDown.Value;
             int recoveryScore = (int)RecScoreNumericUpDown.Value;
-            
+
             // classify animal, calculate satus and housing unit
             var (status, housingUnit) = dataHandler.ClassifyAnimal(recoveryScore);
 
             // create animal 
-            
+
 
             // Validate all parts using data handler validation methods
             bool isValid = dataHandler.validateAnimalID(animalID) &&
@@ -73,6 +73,11 @@ namespace Wildlife_Record_System
                 MessageBox.Show("Unable to save. The animal entered was not in the correct format.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+        }
+
+        private void AnimalEntryForm_Load(object sender, EventArgs e)
+        {
+            
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Wildlife_Record_System
 
         // Load animal record from animal.txt, validates each line
         // Skips malformed entries
-        public  List<Animal> LoadFromFile(string filePath)
+        public List<Animal> LoadFromFile(string filePath)
         {
             List<Animal> animals = new List<Animal>();
             int skippedLinesCount = 0;
@@ -91,7 +91,7 @@ namespace Wildlife_Record_System
             "File Load Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-            catch(IOException ex)
+            catch (IOException ex)
             {
                 MessageBox.Show($"File error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -131,10 +131,83 @@ namespace Wildlife_Record_System
             {
                 MessageBox.Show($"An Error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-  
+
 
         }
 
+        // Updates an existing animal in the file.
+        public bool UpdateAnimal(string filePath, string animalID, Animal updatedAnimal)
+        {
+            try
+            {
+                // Load all the animals from the file.
+                List<Animal> animals = LoadFromFile(filePath);
 
+                // Find the animal that needs to be updated.
+                int animalIndex = -1;
+
+                for (int i = 0; i < animals.Count; i++)
+                {
+                    if (animals[i].AnimalID.Equals(animalID,
+                        StringComparison.OrdinalIgnoreCase))
+                    {
+                        animalIndex = i;
+                        break;
+                    }
+                }
+
+                // Check if the animal was found.
+                if (animalIndex == -1)
+                {
+                    MessageBox.Show("Animal was not found.");
+                    return false;
+                }
+
+                // Keep the original ID so it cannot be changed.
+                string originalID = animals[animalIndex].AnimalID;
+
+                // Get the new status and housing unit from the recovery score.
+                DataHandler dataHandler = new DataHandler();
+                var result = dataHandler.ClassifyAnimal(updatedAnimal.RecoveryScore);
+
+                // Replace the old animal with the updated information.
+                Animal animal = new Animal(
+                    originalID,
+                    updatedAnimal.Name,
+                    updatedAnimal.Species,
+                    updatedAnimal.Age,
+                    updatedAnimal.RecoveryScore,
+                    result.status,
+                    result.housingUnit
+                );
+
+                animals[animalIndex] = animal;
+
+                // Save all the animals back to the file.
+                List<string> lines = new List<string>();
+
+                foreach (Animal a in animals)
+                {
+                    lines.Add(a.ToString());
+                }
+
+                File.WriteAllLines(filePath, lines, Encoding.UTF8);
+
+                MessageBox.Show("Animal updated successfully.");
+                return true;
+            }
+            catch (IOException)
+            {
+                MessageBox.Show("The file could not be updated. Please check if it is open.");
+                return false;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show("You do not have permission to update the file.");
+                return false;
+            }
+        }
     }
+
 }
+

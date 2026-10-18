@@ -17,14 +17,14 @@ namespace Wildlife_Record_System
         {
             List<Animal> animals = fileHandler.LoadFromFile(filePath);
             dataGridViewAnimals.AutoGenerateColumns = false;
-
+            dataGridViewAnimals.Columns.Clear();
 
             // 1. Animal ID
             dataGridViewAnimals.Columns.Add(new DataGridViewTextBoxColumn()
             {
                 Name = "colId",
                 HeaderText = "Animal ID",
-                DataPropertyName = "animalID" 
+                DataPropertyName = "animalID"
             });
 
             // 2. Name
@@ -85,16 +85,51 @@ namespace Wildlife_Record_System
 
 
 
-
+        //opens the animal entry and refreshes the grid when it closes
         private void button1_Click(object sender, EventArgs e)
         {
             AnimalEntryForm addAnimal = new AnimalEntryForm();
             addAnimal.ShowDialog();
+
+            LoadAnimalsToGrid();
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string searchText = animalIDTxt.Text.Trim();
+
+            if (searchText == "")
+            {
+                MessageBox.Show("Please enter an Animal ID or name.");
+                return;
+            }
+
+            List<Animal> animals = fileHandler.LoadFromFile(filePath);
+
+            List<Animal> searchResults = animals
+                .Where(animal => animal.animalID.Contains(searchText,
+                    StringComparison.OrdinalIgnoreCase)
+                    || animal.name.Contains(searchText,
+                    StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            if (searchResults.Count == 0)
+            {
+                MessageBox.Show("No animal found.");
+            }
+
+            dataGridViewAnimals.DataSource = null;
+            dataGridViewAnimals.DataSource = searchResults;
         }
     }
 }
