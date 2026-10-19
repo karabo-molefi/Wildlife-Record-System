@@ -37,15 +37,15 @@
             lblHeader = new Label();
             label1 = new Label();
             searchTXT = new TextBox();
+            btnGenerateSummary2 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridViewAnimals).BeginInit();
             SuspendLayout();
             // 
             // button1
             // 
-            button1.Location = new Point(14, 479);
-            button1.Margin = new Padding(3, 4, 3, 4);
+            button1.Location = new Point(12, 359);
             button1.Name = "button1";
-            button1.Size = new Size(144, 31);
+            button1.Size = new Size(126, 23);
             button1.TabIndex = 0;
             button1.Text = "Add Animal";
             button1.UseVisualStyleBackColor = true;
@@ -54,19 +54,17 @@
             // dataGridViewAnimals
             // 
             dataGridViewAnimals.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewAnimals.Location = new Point(14, 97);
-            dataGridViewAnimals.Margin = new Padding(3, 4, 3, 4);
+            dataGridViewAnimals.Location = new Point(27, 73);
             dataGridViewAnimals.Name = "dataGridViewAnimals";
             dataGridViewAnimals.RowHeadersWidth = 51;
-            dataGridViewAnimals.Size = new Size(872, 345);
+            dataGridViewAnimals.Size = new Size(763, 259);
             dataGridViewAnimals.TabIndex = 1;
             // 
             // btnSearch
             // 
-            btnSearch.Location = new Point(211, 479);
-            btnSearch.Margin = new Padding(3, 4, 3, 4);
+            btnSearch.Location = new Point(185, 359);
             btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(144, 31);
+            btnSearch.Size = new Size(126, 23);
             btnSearch.TabIndex = 2;
             btnSearch.Text = "Search";
             btnSearch.UseVisualStyleBackColor = true;
@@ -74,10 +72,9 @@
             // 
             // btnUpdate
             // 
-            btnUpdate.Location = new Point(401, 479);
-            btnUpdate.Margin = new Padding(3, 4, 3, 4);
+            btnUpdate.Location = new Point(351, 359);
             btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(144, 31);
+            btnUpdate.Size = new Size(126, 23);
             btnUpdate.TabIndex = 3;
             btnUpdate.Text = "Update";
             btnUpdate.UseVisualStyleBackColor = true;
@@ -85,10 +82,9 @@
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(567, 479);
-            btnDelete.Margin = new Padding(3, 4, 3, 4);
+            btnDelete.Location = new Point(496, 359);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(144, 31);
+            btnDelete.Size = new Size(126, 23);
             btnDelete.TabIndex = 4;
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = true;
@@ -96,10 +92,9 @@
             // 
             // btnExit
             // 
-            btnExit.Location = new Point(741, 479);
-            btnExit.Margin = new Padding(3, 4, 3, 4);
+            btnExit.Location = new Point(648, 359);
             btnExit.Name = "btnExit";
-            btnExit.Size = new Size(144, 31);
+            btnExit.Size = new Size(126, 23);
             btnExit.TabIndex = 5;
             btnExit.Text = "Exit";
             btnExit.UseVisualStyleBackColor = true;
@@ -109,33 +104,45 @@
             // 
             lblHeader.AutoSize = true;
             lblHeader.Font = new Font("Segoe UI", 20F);
-            lblHeader.Location = new Point(14, 25);
+            lblHeader.Location = new Point(12, 19);
             lblHeader.Name = "lblHeader";
-            lblHeader.Size = new Size(362, 46);
+            lblHeader.Size = new Size(287, 37);
             lblHeader.TabIndex = 6;
             lblHeader.Text = "Wildlife Record System";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(31, 561);
+            label1.Location = new Point(27, 421);
             label1.Name = "label1";
-            label1.Size = new Size(82, 20);
+            label1.Size = new Size(65, 15);
             label1.TabIndex = 7;
             label1.Text = "Animal ID :";
             // 
             // searchTXT
             // 
-            searchTXT.Location = new Point(115, 554);
+            searchTXT.Location = new Point(101, 416);
+            searchTXT.Margin = new Padding(3, 2, 3, 2);
             searchTXT.Name = "searchTXT";
-            searchTXT.Size = new Size(207, 27);
+            searchTXT.Size = new Size(182, 23);
             searchTXT.TabIndex = 8;
+            // 
+            // btnGenerateSummary2
+            // 
+            btnGenerateSummary2.Location = new Point(648, 416);
+            btnGenerateSummary2.Name = "btnGenerateSummary2";
+            btnGenerateSummary2.Size = new Size(126, 23);
+            btnGenerateSummary2.TabIndex = 9;
+            btnGenerateSummary2.Text = "Generate Summary";
+            btnGenerateSummary2.UseVisualStyleBackColor = true;
+            btnGenerateSummary2.Click += btnGenerateSummary_Click;
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(907, 600);
+            ClientSize = new Size(833, 464);
+            Controls.Add(btnGenerateSummary2);
             Controls.Add(searchTXT);
             Controls.Add(label1);
             Controls.Add(lblHeader);
@@ -145,7 +152,6 @@
             Controls.Add(btnSearch);
             Controls.Add(dataGridViewAnimals);
             Controls.Add(button1);
-            Margin = new Padding(3, 4, 3, 4);
             Name = "Form1";
             Text = "Wildlife Record System";
             Load += Form1_Load;
@@ -165,5 +171,6 @@
         private Label lblHeader;
         private Label label1;
         private TextBox searchTXT;
+        private Button btnGenerateSummary2;
     }
 }
