@@ -101,10 +101,10 @@ namespace Wildlife_Record_System
         {
             try
             {
-                // 1. Check if a row is selected in the DataGridView
+                //  Check if a row is selected in the DataGridView
                 if (dataGridViewAnimals.SelectedRows.Count == 0)
                 {
-                    MessageBox.Show("Please select an animal record from the grid to delete.",
+                    MessageBox.Show($"Please select an animal record from the grid to delete.",
                         "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -118,7 +118,7 @@ namespace Wildlife_Record_System
 
                 if (string.IsNullOrEmpty(animalId))
                 {
-                    MessageBox.Show("The selected row does not contain a valid Animal ID.",
+                    MessageBox.Show($"The selected row does not contain a valid Animal ID.",
                         "Invalid Selection", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
