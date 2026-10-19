@@ -17,7 +17,7 @@ namespace Wildlife_Record_System
 
         // Load animal record from animal.txt, validates each line
         // Skips malformed entries
-        public  List<Animal> LoadFromFile(string filePath)
+        public List<Animal> LoadFromFile(string filePath)
         {
             List<Animal> animals = new List<Animal>();
             int skippedLinesCount = 0;
@@ -92,7 +92,7 @@ namespace Wildlife_Record_System
             "File Load Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-            catch(IOException ex)
+            catch (IOException ex)
             {
                 MessageBox.Show($"File error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -132,21 +132,49 @@ namespace Wildlife_Record_System
             {
                 MessageBox.Show($"An Error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-  
+
 
         }
 
-
-        //delete the record with the specified ID
-        //return true only when the deletion has happend successfully
-        public bool DeleteAnimal(string animalID) 
+        
+        // Search for an animal by ID, name, species, or status
+        public List<Animal> SearchAnimals(string searchText)
         {
-            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "animal.txt");
+            string filePath = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory, "animal.txt");
+
+            List<Animal> allAnimals = LoadFromFile(filePath);
+            List<Animal> results = new List<Animal>();
+
+            searchText = searchText.Trim().ToLower();
+
+            foreach (Animal animal in allAnimals)
+            {
+                if (animal.animalID.ToLower().Contains(searchText) ||
+                    animal.name.ToLower().Contains(searchText) ||
+                    animal.species.ToLower().Contains(searchText) ||
+                    animal.status.ToLower().Contains(searchText))
+                {
+                    results.Add(animal);
+                }
+            }
+
+            return results;
+        }
+
+
+        // Delete an animal using its ID
+        public bool DeleteAnimal(string animalID)
+        {
+            string filePath = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory, "animal.txt");
+
             try
             {
                 if (!File.Exists(filePath))
                 {
-                    MessageBox.Show($"The data file (animals.txt) could not be found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("The data file (animal.txt) could not be found.",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
 
@@ -156,42 +184,115 @@ namespace Wildlife_Record_System
 
                 foreach (string line in lines)
                 {
-                    // If it's not empty, check if it matches the ID
                     if (!string.IsNullOrWhiteSpace(line))
                     {
                         string[] parts = line.Split('|');
-                        if (parts.Length > 0 && parts[0].Trim().Equals(animalID, StringComparison.OrdinalIgnoreCase))
+
+                        if (parts.Length > 0 &&
+                            parts[0].Trim().Equals(
+                                animalID, StringComparison.OrdinalIgnoreCase))
                         {
                             recordFound = true;
-                            continue; // Skips adding it (deletes it)
+                            continue;
                         }
                     }
 
-                    // Keep everything else (blank lines or non-matching records)
                     updatedLines.Add(line);
                 }
 
                 if (!recordFound)
                 {
-                    MessageBox.Show($"No animal record with ID '{animalID}' was found.", "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Animal record not found.",
+                        "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return false;
                 }
 
                 File.WriteAllLines(filePath, updatedLines, Encoding.UTF8);
-                MessageBox.Show($"Animal record deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                MessageBox.Show("Animal record deleted successfully.",
+                    "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 return true;
             }
             catch (IOException ex)
             {
-                MessageBox.Show($"Error deleting animal record: {ex.Message}");
+                MessageBox.Show($"Error deleting animal record: {ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             catch (UnauthorizedAccessException)
             {
-                MessageBox.Show($"Permission denied. Cannot modify animals.txt.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Permission denied. Cannot modify animal.txt.",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
 
+
+        // Update an animal using its ID
+        public bool UpdatedAnimals(Animal updatedAnimal)
+        {
+            string filePath = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory, "animal.txt");
+
+            try
+            {
+                if (!File.Exists(filePath))
+                {
+                    MessageBox.Show("The data file (animal.txt) could not be found.",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+
+                string[] lines = File.ReadAllLines(filePath, Encoding.UTF8);
+                bool recordFound = false;
+
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    string[] parts = lines[i].Split('|');
+
+                    if (parts.Length > 0 &&
+                        parts[0].Trim().Equals(
+                            updatedAnimal.animalID,
+                            StringComparison.OrdinalIgnoreCase))
+                    {
+                        lines[i] = updatedAnimal.ToString();
+                        recordFound = true;
+                        break;
+                    }
+                }
+
+                if (!recordFound)
+                {
+                    MessageBox.Show("Animal record not found.",
+                        "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+
+                File.WriteAllLines(filePath, lines, Encoding.UTF8);
+
+                MessageBox.Show("Animal record updated successfully.",
+                    "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                return true;
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show($"File error: {ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show("Permission denied. Cannot modify animal.txt.",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
     }
 }
+
+    
+
+
+

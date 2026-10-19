@@ -17,7 +17,7 @@ namespace Wildlife_Record_System
         {
             List<Animal> animals = FileHandler.LoadFromFile(filePath);
             dataGridViewAnimals.AutoGenerateColumns = false;
-
+            dataGridViewAnimals.Columns.Clear();
 
             // 1. Animal ID
             dataGridViewAnimals.Columns.Add(new DataGridViewTextBoxColumn()
@@ -85,17 +85,20 @@ namespace Wildlife_Record_System
 
 
 
-
+        //opens the animal entry and refreshes the grid when it closes
         private void button1_Click(object sender, EventArgs e)
         {
             AnimalEntryForm addAnimal = new AnimalEntryForm();
             addAnimal.ShowDialog();
+
+            LoadAnimalsToGrid();
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
@@ -152,5 +155,67 @@ namespace Wildlife_Record_System
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            FileHandler fileHandler = new FileHandler();
+            string searchText = searchTXT.Text.Trim();
+            List<Animal> animalToShow;
+
+            if (searchText == "")
+            {
+                animalToShow = fileHandler.LoadFromFile(filePath);
+            }
+            else
+            {
+                animalToShow = fileHandler.SearchAnimals(searchText);
+
+                if (animalToShow.Count == 0)
+                {
+                    MessageBox.Show(
+                        "No animals matched your search",
+                        "No results",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+            }
+
+            dataGridViewAnimals.DataSource = null;
+            dataGridViewAnimals.DataSource = animalToShow;
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            FileHandler fileHandler = new FileHandler();
+
+            if (dataGridViewAnimals.SelectedRows.Count == 0)
+            {
+                MessageBox.Show(
+                    "Please select the animal record from the grid to update",
+                    "No selection",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
+
+            Animal selectedAnimal =
+                (Animal)dataGridViewAnimals.SelectedRows[0].DataBoundItem;
+
+            AnimalEntryForm updateForm = new AnimalEntryForm();
+            updateForm.SetUpdateMode(selectedAnimal);
+            updateForm.ShowDialog();
+
+            searchTXT.Text = "";
+            dataGridViewAnimals.DataSource = null;
+            dataGridViewAnimals.DataSource =
+                fileHandler.LoadFromFile(filePath);
+        }
     }
 }
+
+    
+
