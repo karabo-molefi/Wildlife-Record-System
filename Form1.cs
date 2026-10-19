@@ -106,30 +106,57 @@ namespace Wildlife_Record_System
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            string searchText = animalIDTxt.Text.Trim();
+            FileHandler fileHandler = new FileHandler();
+            string searchText = searchTXT.Text.Trim();
+            List<Animal> animalToShow;
 
             if (searchText == "")
             {
-                MessageBox.Show("Please enter an Animal ID or name.");
-                return;
+                //nothing typed, so show all the animal
+                animalToShow = fileHandler.LoadFromFile(filePath);
+
             }
 
-            List<Animal> animals = fileHandler.LoadFromFile(filePath);
-
-            List<Animal> searchResults = animals
-                .Where(animal => animal.animalID.Contains(searchText,
-                    StringComparison.OrdinalIgnoreCase)
-                    || animal.name.Contains(searchText,
-                    StringComparison.OrdinalIgnoreCase))
-                .ToList();
-
-            if (searchResults.Count == 0)
+            else
             {
-                MessageBox.Show("No animal found.");
-            }
+                //show only the animals that match the search text
+                animalToShow = fileHandler.SearchAnimals(searchText);
 
+                if (animalToShow.Count == 0)
+                {
+
+                    MessageBox.Show("No animals matched your search", "No results", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
+
+            }
             dataGridViewAnimals.DataSource = null;
-            dataGridViewAnimals.DataSource = searchResults;
+            dataGridViewAnimals.DataSource = animalToShow;
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            FileHandler fileHandler = new FileHandler();
+            //check that a row is selected
+            if (dataGridViewAnimals.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select the animal record from the grid to update", "No selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+
+            }
+            // get the animal that belongs to the selected row
+            Animal selectedAnimal = (Animal)dataGridViewAnimals.SelectedRows[0].DataBoundItem;
+
+            //open the Animal entry form in update mode 
+            AnimalEntryForm updateForm = new AnimalEntryForm();
+            updateForm.SetUpdateMode(selectedAnimal);
+            updateForm.ShowDialog();
+
+            //refresh the grid with the latest data from the file
+            searchTXT.Text = "";
+            dataGridViewAnimals.DataSource = null;
+            dataGridViewAnimals.DataSource = fileHandler.LoadFromFile(filePath);
+
         }
     }
 }

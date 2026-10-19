@@ -12,6 +12,8 @@ namespace Wildlife_Record_System
 {
     public partial class AnimalEntryForm : Form
     {
+        //remeber if the form is being used to update an animal
+        private bool isUpdating  =false;
         public AnimalEntryForm()
         {
             InitializeComponent();
@@ -78,6 +80,25 @@ namespace Wildlife_Record_System
         private void AnimalEntryForm_Load(object sender, EventArgs e)
         {
             
+        }
+
+        internal  void SetUpdateMode(Animal animalToUpdate) 
+        {
+            isUpdating = true;
+
+            // change the form title and the button text
+            this.Text = "Update Animal";
+            btnAddAnimal.Text = "Update";
+
+            // fill the boxes with the animal's current details
+            animalIDTxt.Text = animalToUpdate.animalID;
+            nameTxt.Text = animalToUpdate.name;
+            speciesTxt.Text = animalToUpdate.species;
+            AgeNumericUpDown.Value = animalToUpdate.age;
+            RecScoreNumericUpDown.Value = animalToUpdate.recoveryScore;
+
+            // the ID must not change because it is used to find the record
+            animalIDTxt.ReadOnly = true;
         }
     }
 }

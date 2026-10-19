@@ -35,6 +35,8 @@
             btnDelete = new Button();
             btnExit = new Button();
             lblHeader = new Label();
+            label1 = new Label();
+            searchTXT = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dataGridViewAnimals).BeginInit();
             SuspendLayout();
             // 
@@ -79,6 +81,7 @@
             btnUpdate.TabIndex = 3;
             btnUpdate.Text = "Update";
             btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
             // 
             // btnDelete
             // 
@@ -111,11 +114,29 @@
             lblHeader.TabIndex = 6;
             lblHeader.Text = "Wildlife Record System";
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(31, 561);
+            label1.Name = "label1";
+            label1.Size = new Size(82, 20);
+            label1.TabIndex = 7;
+            label1.Text = "Animal ID :";
+            // 
+            // searchTXT
+            // 
+            searchTXT.Location = new Point(115, 554);
+            searchTXT.Name = "searchTXT";
+            searchTXT.Size = new Size(207, 27);
+            searchTXT.TabIndex = 8;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(907, 600);
+            Controls.Add(searchTXT);
+            Controls.Add(label1);
             Controls.Add(lblHeader);
             Controls.Add(btnExit);
             Controls.Add(btnDelete);
@@ -141,5 +162,7 @@
         private Button btnDelete;
         private Button btnExit;
         private Label lblHeader;
+        private Label label1;
+        private TextBox searchTXT;
     }
 }
