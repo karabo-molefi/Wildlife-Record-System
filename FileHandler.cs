@@ -141,7 +141,7 @@ namespace Wildlife_Record_System
         //return true only when the deletion has happend successfully
         public bool DeleteAnimal(string animalID) 
         {
-            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "animals.txt");
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "animal.txt");
             try
             {
                 if (!File.Exists(filePath))

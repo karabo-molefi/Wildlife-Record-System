@@ -2,7 +2,7 @@ namespace Wildlife_Record_System
 {
     public partial class Form1 : Form
     {
-        private FileHandler fileHandler = new FileHandler();
+        private FileHandler FileHandler = new FileHandler();
         private string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "animal.txt");
         public Form1()
         {
@@ -15,7 +15,7 @@ namespace Wildlife_Record_System
         //load animals to datagrid view
         public void LoadAnimalsToGrid()
         {
-            List<Animal> animals = fileHandler.LoadFromFile(filePath);
+            List<Animal> animals = FileHandler.LoadFromFile(filePath);
             dataGridViewAnimals.AutoGenerateColumns = false;
 
 
@@ -24,7 +24,7 @@ namespace Wildlife_Record_System
             {
                 Name = "colId",
                 HeaderText = "Animal ID",
-                DataPropertyName = "animalID" 
+                DataPropertyName = "animalID"
             });
 
             // 2. Name
@@ -95,6 +95,62 @@ namespace Wildlife_Record_System
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // 1. Check if a row is selected in the DataGridView
+                if (dataGridViewAnimals.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Please select an animal record from the grid to delete.",
+                        "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                //  Get the selected row
+                DataGridViewRow selectedRow = dataGridViewAnimals.SelectedRows[0];
+
+                //  Extract the Animal ID and Name
+                string animalId = selectedRow.Cells["colId"]?.Value?.ToString()?.Trim() ?? string.Empty;
+                string animalName = selectedRow.Cells["colName"]?.Value?.ToString()?.Trim() ?? string.Empty;
+
+                if (string.IsNullOrEmpty(animalId))
+                {
+                    MessageBox.Show("The selected row does not contain a valid Animal ID.",
+                        "Invalid Selection", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                //  Show Yes/No confirmation dialog displaying the animal's ID and name
+                DialogResult confirmation = MessageBox.Show(
+                    $"Delete {animalId} ({animalName})? This cannot be undone.",
+                    "Confirm Deletion",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                // Choosing No changes nothing
+                if (confirmation == DialogResult.No)
+                {
+                    return;
+                }
+
+                // Call the delete method passing ONLY the animalId (since FileHandler handles its own path)
+                bool isDeleted = FileHandler.DeleteAnimal(animalId);
+
+                if (isDeleted)
+                {
+                    // Automatically refresh the grid to show the updated list
+                    LoadAnimalsToGrid();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Safety net to ensure the application never crashes unhandled
+                MessageBox.Show($"An unexpected error occurred: {ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

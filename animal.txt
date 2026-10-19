@@ -6,3 +6,4 @@ WR-0005|Simba|Lion|6|35|Serious|High-Dependency Ward
 WR-0006|Thembi|Vervet Monkey|1|75|Recovering|Outdoor Enclosure
 WR-0007|Biko|Leopard|4|92|Release-Ready|Pre-Release Camp
 WR-0008|Lerato|Caracal|2|45|Stable|Recovery Ward
+
