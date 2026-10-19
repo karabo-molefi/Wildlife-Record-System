@@ -7,7 +7,8 @@ namespace Wildlife_Record_System
         public Form1()
         {
             InitializeComponent();
-
+            
+            InitializeSummaryControls();
             LoadAnimalsToGrid();
         }
 
@@ -186,7 +187,92 @@ namespace Wildlife_Record_System
 
             dataGridViewAnimals.DataSource = null;
             dataGridViewAnimals.DataSource = animalToShow;
+        } 
+        
+        // Creates the summary button and on-screen report area.
+        private void InitializeSummaryControls()
+        {
+            this.ClientSize = new System.Drawing.Size(907, 800);
+
+            System.Windows.Forms.Button btnGenerateSummary =
+                new System.Windows.Forms.Button();
+
+            btnGenerateSummary.Name = "btnGenerateSummary";
+            btnGenerateSummary.Text = "Generate Summary";
+            btnGenerateSummary.Location =
+                new System.Drawing.Point(741, 510);
+            btnGenerateSummary.Size =
+                new System.Drawing.Size(144, 31);
+
+            btnGenerateSummary.Click += btnGenerateSummary_Click;
+            this.Controls.Add(btnGenerateSummary);
+
+            System.Windows.Forms.TextBox txtSummary =
+                new System.Windows.Forms.TextBox();
+
+            txtSummary.Name = "txtSummary";
+            txtSummary.Multiline = true;
+            txtSummary.ReadOnly = true;
+            txtSummary.ScrollBars =
+                System.Windows.Forms.ScrollBars.Vertical;
+            txtSummary.Location =
+                new System.Drawing.Point(14, 620);
+            txtSummary.Size =
+                new System.Drawing.Size(872, 150);
+
+            this.Controls.Add(txtSummary);
         }
+
+        // Calculates and displays the summary and saves summary.txt.
+        private void btnGenerateSummary_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Read the current saved animal records.
+                List<Animal> animals =
+                    FileHandler.LoadFromFile(filePath);
+
+                string reportPath = System.IO.Path.Combine(
+                    AppDomain.CurrentDomain.BaseDirectory,
+                    "summary.txt");
+
+                string reportText =
+                    SummaryReport.Generate(animals, reportPath);
+
+                // Display the results on the main form.
+                System.Windows.Forms.Control[] matches =
+                    this.Controls.Find("txtSummary", true);
+
+                if (matches.Length > 0)
+                {
+                    matches[0].Text = reportText;
+                }
+
+                MessageBox.Show(
+                    "Summary generated successfully.",
+                    "Summary Report",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+            catch (System.IO.IOException)
+            {
+                MessageBox.Show(
+                    "The report could not be written. " +
+                    "Check whether the file is open or unavailable.",
+                    "File Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show(
+                    "Permission denied. Check access to the report file.",
+                    "Permission Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
