@@ -31,22 +31,7 @@ namespace Wildlife_Record_System
         }
 
 
-        //updates one existing animal without changing its ID
-        public bool UpdateAnimal()
-        {
-            try
-            {
-
-            }
-            catch (Exception ex) 
-            {
-            MessageBox.Show($"Error updating animal record: {ex.Message}");
-                return false;
-            }
-
-        }
-
-        //delete the record with thr specified ID
+        //delete the record with the specified ID
         //return true only when the deletion has happend successfully
         public bool DeleteAnimal(string animalID) 
         {
