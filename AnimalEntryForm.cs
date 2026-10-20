@@ -68,7 +68,23 @@ namespace Wildlife_Record_System
             if (isValid)
             {
                 Animal animal = new Animal(animalID, name, species, age, recoveryScore, status, housingUnit);
-                fileHandler.writeAnimalRecord(animal);
+
+                // Check if we're updating or adding a new record
+                if (isUpdating)
+                {
+                    // Update existing record
+                    bool updateSuccess = fileHandler.UpdatedAnimals(animal);
+                    if (updateSuccess)
+                    {
+                        this.Close();
+                    }
+                }
+                else
+                {
+                    // Add new record
+                    fileHandler.writeAnimalRecord(animal);
+                    this.Close();
+                }
             }
             else
             {
